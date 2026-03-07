@@ -1,12 +1,11 @@
 name: doth
-description: A sample command-line application.
+description: A multi-provider authentication library for dart servers.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/tobibamidele/doth
 
 environment:
   sdk: ^3.10.4
 
-# Add regular dependencies here.
 dependencies:
   path: ^1.9.0
   http: ^1.6.0
