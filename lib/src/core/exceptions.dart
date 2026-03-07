@@ -2,7 +2,7 @@
 
 /*
  * OAuthException
- * Base exception for all dart_goth errors.
+ * Base exception for all doth errors.
  * Sub-types allow callers to handle specific failure modes.
  *
  * Example:
@@ -15,7 +15,7 @@
  *   }
  */
 
-/// Base class for all dart_goth exceptions.
+/// Base class for all doth exceptions.
 sealed class OAuthException implements Exception {
   final String message;
   final Object? cause;
@@ -64,7 +64,7 @@ final class UserFetchException extends OAuthException {
   const UserFetchException(super.message, {this.statusCode, super.cause});
 }
 
-/// The named provider is not registered with DartGoth.
+/// The named provider is not registered with Doth.
 final class ProviderNotFoundException extends OAuthException {
   final String providerName;
 

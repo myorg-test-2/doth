@@ -6,7 +6,7 @@
  * Implements Authorization Code flow with PKCE (GitHub supports S256 since 2023).
  *
  * Example:
- *   DartGoth.use([
+ *   Doth.use([
  *     GitHubProvider(
  *       clientId: Platform.environment['GITHUB_CLIENT_ID']!,
  *       clientSecret: Platform.environment['GITHUB_CLIENT_SECRET']!,

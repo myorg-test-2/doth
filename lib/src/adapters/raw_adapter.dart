@@ -2,13 +2,13 @@
 
 /*
  * RawAdapter
- * Integrates dart_goth with raw `dart:io` HttpServer, requiring
+ * Integrates doth with raw `dart:io` HttpServer, requiring
  * no web framework at all. Compatible with any custom server.
  *
  * Example:
  *   final server = await HttpServer.bind('localhost', 8080);
  *   await for (final request in server) {
- *     await RawAdapter.handle(request, stateStore: DartGoth.stateStore);
+ *     await RawAdapter.handle(request, stateStore: Doth.stateStore);
  *   }
  */
 
@@ -26,7 +26,7 @@ typedef RawAuthSuccessCallback =
 typedef RawAuthErrorCallback =
     Future<void> Function(OAuthException error, HttpRequest request);
 
-/// A framework-agnostic adapter for dart_goth using raw `dart:io`.
+/// A framework-agnostic adapter for doth using raw `dart:io`.
 class RawAdapter {
   RawAdapter._();
 

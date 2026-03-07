@@ -2,13 +2,13 @@
 
 /*
  * ShelfAdapter
- * Integrates dart_goth with the `shelf` web framework (and by extension
+ * Integrates doth with the `shelf` web framework (and by extension
  * shelf-based frameworks: dart_frog, shelf_router, angel3, etc.).
  *
  * Usage — add these two routes to your shelf Router:
  *
- *   import 'package:dart_goth/dart_goth.dart';
- *   import 'package:dart_goth/shelf_adapter.dart';
+ *   import 'package:doth/doth.dart';
+ *   import 'package:doth/shelf_adapter.dart';
  *   import 'package:shelf_router/shelf_router.dart';
  *   import 'package:shelf/shelf.dart';
  *
@@ -44,7 +44,7 @@ typedef OnAuthSuccess =
 typedef OnAuthError =
     Future<Response> Function(OAuthException error, Request request);
 
-/// Shelf middleware/handler helpers for dart_goth.
+/// Shelf middleware/handler helpers for doth.
 class ShelfAdapter {
   ShelfAdapter._();
 

@@ -6,7 +6,7 @@
  * Docs: https://discord.com/developers/docs/topics/oauth2
  *
  * Example:
- *   DartGoth.use([
+ *   Doth.use([
  *     DiscordProvider(
  *       clientId: Platform.environment['DISCORD_CLIENT_ID']!,
  *       clientSecret: Platform.environment['DISCORD_CLIENT_SECRET']!,

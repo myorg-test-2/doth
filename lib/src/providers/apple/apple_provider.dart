@@ -7,7 +7,7 @@
  * Docs: https://developer.apple.com/documentation/sign_in_with_apple/generate_and_validate_tokens
  *
  * Example:
- *   DartGoth.use([
+ *   Doth.use([
  *     AppleProvider(
  *       clientId: 'com.example.app',   // Your Services ID
  *       teamId: 'TEAMID12345',

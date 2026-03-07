@@ -8,7 +8,7 @@
  * Docs: https://developers.google.com/identity/protocols/oauth2/web-server
  *
  * Example:
- *   DartGoth.use([
+ *   Doth.use([
  *     GoogleProvider(
  *       clientId: Platform.environment['GOOGLE_CLIENT_ID']!,
  *       clientSecret: Platform.environment['GOOGLE_CLIENT_SECRET']!,

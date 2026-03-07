@@ -11,7 +11,7 @@
  *         redis.setEx(state, ttl?.inSeconds ?? 600, jsonEncode(extra));
  *     // ...
  *   }
- *   DartGoth.stateStore = RedisStateStore();
+ *   Doth.stateStore = RedisStateStore();
  */
 
 /// Data stored alongside a state key during an OAuth flow.

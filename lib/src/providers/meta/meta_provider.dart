@@ -7,7 +7,7 @@
  * Docs: https://developers.facebook.com/docs/facebook-login/guides/advanced/manual-flow
  *
  * Example:
- *   DartGoth.use([
+ *   Doth.use([
  *     MetaProvider(
  *       clientId: Platform.environment['META_APP_ID']!,
  *       clientSecret: Platform.environment['META_APP_SECRET']!,

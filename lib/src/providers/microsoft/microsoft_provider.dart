@@ -7,7 +7,7 @@
  * Docs: https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow
  *
  * Example:
- *   DartGoth.use([
+ *   Doth.use([
  *     MicrosoftProvider(
  *       clientId: Platform.environment['AZURE_CLIENT_ID']!,
  *       clientSecret: Platform.environment['AZURE_CLIENT_SECRET']!,

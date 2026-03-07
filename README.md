@@ -1,4 +1,4 @@
-# dart_goth
+# doth
 
 **A multi-provider OAuth2 authentication library for Dart backends.**  
 Inspired by [markbates/goth](https://github.com/markbates/goth) for Go.
@@ -7,13 +7,13 @@ Inspired by [markbates/goth](https://github.com/markbates/goth) for Go.
 
 ## Features
 
-- ✅ **Provider-agnostic** — one clean API, pluggable providers  
-- 🔐 **PKCE S256 by default** (RFC 7636) — protects every authorization code flow  
-- 🎲 **Cryptographic state** — CSRF protection via timing-safe comparison  
-- 🔁 **Token refresh** — built-in `refreshToken()` on every provider  
-- 🧩 **Framework-agnostic core** — works with `shelf`, `dart_frog`, `alfred`, or raw `dart:io`  
-- 🔌 **Pluggable state store** — swap the default in-memory store for Redis, Postgres, etc.  
-- 🍎 **Apple Sign-In** — JWT client secret generation + nonce verification  
+- **Provider-agnostic** — one clean API, pluggable providers  
+- **PKCE S256 by default** (RFC 7636) — protects every authorization code flow  
+- **Cryptographic state** — CSRF protection via timing-safe comparison  
+- **Token refresh** — built-in `refreshToken()` on every provider  
+- **Framework-agnostic core** — works with `shelf`, `dart_frog`, `alfred`, or raw `dart:io`  
+- **Pluggable state store** — swap the default in-memory store for Redis, Postgres, etc.  
+- **Apple Sign-In** — JWT client secret generation + nonce verification  
 
 ---
 
@@ -35,7 +35,7 @@ Inspired by [markbates/goth](https://github.com/markbates/goth) for Go.
 ```yaml
 # pubspec.yaml
 dependencies:
-  dart_goth: ^0.1.0
+  doth: ^0.1.0
 ```
 
 ---
@@ -43,13 +43,13 @@ dependencies:
 ## Quick Start (shelf)
 
 ```dart
-import 'package:dart_goth/dart_goth.dart';
-import 'package:dart_goth/shelf_adapter.dart';
+import 'package:doth/doth.dart';
+import 'package:doth/shelf_adapter.dart';
 import 'package:shelf_router/shelf_router.dart';
 
 void main() async {
   // 1. Register providers
-  DartGoth.use([
+  Doth.use([
     GitHubProvider(
       clientId: Platform.environment['GITHUB_CLIENT_ID']!,
       clientSecret: Platform.environment['GITHUB_CLIENT_SECRET']!,
@@ -82,7 +82,7 @@ void main() async {
 Apple uses `response_mode=form_post`, so the callback is a POST:
 
 ```dart
-DartGoth.use([
+Doth.use([
   AppleProvider(
     clientId: 'com.example.myapp',       // Your Services ID
     teamId: Platform.environment['APPLE_TEAM_ID']!,
@@ -217,7 +217,7 @@ class RedisStateStore implements StateStore {
 }
 
 // Use it:
-DartGoth.stateStore = RedisStateStore(myRedisClient);
+Doth.stateStore = RedisStateStore(myRedisClient);
 ```
 
 ---
