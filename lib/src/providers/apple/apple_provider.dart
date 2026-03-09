@@ -21,6 +21,7 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:jose/jose.dart';
 import '../../core/provider.dart';
 
 class AppleEndpoints {
@@ -235,48 +236,30 @@ class AppleProvider extends OAuthProvider {
   /// The JWT is valid for 6 months maximum, but we generate one per request
   /// to minimise exposure window.
   ///
-  /// NOTE: This implementation uses a simplified HMAC-SHA256 signing as a
-  /// placeholder. In production, replace with a proper ES256 (ECDSA P-256)
-  /// signer using the `dart_jsonwebtoken` or `jose` package.
+  /// Uses ECDSA P-256 signing via the `jose` package for production-grade security.
   String _generateClientSecret() {
     final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
     final exp = now + 300; // 5-minute expiry per request
 
-    final header = base64Url
-        .encode(utf8.encode(jsonEncode({'alg': 'ES256', 'kid': keyId})))
-        .replaceAll('=', '');
-    final payload = base64Url
-        .encode(
-          utf8.encode(
-            jsonEncode({
-              'iss': teamId,
-              'iat': now,
-              'exp': exp,
-              'aud': 'https://appleid.apple.com',
-              'sub': clientId,
-            }),
-          ),
-        )
-        .replaceAll('=', '');
+    final claims = JsonWebTokenClaims.fromJson({
+      'iss': teamId,
+      'iat': now,
+      'exp': exp,
+      'aud': 'https://appleid.apple.com',
+      'sub': clientId,
+    });
 
-    // ⚠️ IMPORTANT: The following signature is a placeholder using HMAC-SHA256.
-    // Apple requires ES256 (ECDSA with P-256 curve). In production, use:
-    //   final signer = EcdsaSigner(HashAlgorithm.sha256);
-    //   final sig = signer.sign('$header.$payload', privateKeyPem);
-    // Using the `dart_jsonwebtoken` package:
-    //   final jwt = JWT({'iss': teamId, ...}).sign(
-    //     ECPrivateKey(privateKeyPem), algorithm: JWTAlgorithm.ES256);
-    final sigInput = '$header.$payload';
-    final sig = base64Url
-        .encode(
-          Hmac(
-            sha256,
-            utf8.encode(privateKeyPem),
-          ).convert(utf8.encode(sigInput)).bytes,
-        )
-        .replaceAll('=', '');
+    final keyStore = JsonWebKeyStore()
+      ..addKey(JsonWebKey.fromPem(privateKeyPem));
 
-    return '$header.$payload.$sig';
+    final jwt = JsonWebToken(claims);
+    final signedJwt = jwt.getSignedCompactSerialization(
+      keyStore,
+      algorithm: 'ES256',
+      keyId: keyId,
+    );
+
+    return signedJwt;
   }
 
   /// Returns SHA-256 hex digest of a nonce string (Apple requirement).
