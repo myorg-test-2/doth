@@ -71,10 +71,10 @@ class ShelfAdapter {
         scopes: _extractScopes(request),
       );
       return Response.found(session.authorizationUrl);
-    } on ProviderNotFoundException catch (e) {
-      return Response.notFound(e.message);
+    } on ProviderNotFoundException catch (_) {
+      return Response.notFound("no provider found");
     } catch (e) {
-      return Response.internalServerError(body: 'Auth init failed: $e');
+      return Response.internalServerError();
     }
   }
 
@@ -116,12 +116,12 @@ class ShelfAdapter {
         );
 
         return onSuccess(user, request);
-      } on ProviderNotFoundException catch (e) {
-        return Response.notFound(e.message);
+      } on ProviderNotFoundException catch (_) {
+        return Response.notFound("no provider found");
       } on OAuthException catch (e) {
         return onError(e, request);
       } catch (e) {
-        return Response.internalServerError(body: 'Callback failed: $e');
+        return Response.internalServerError();
       }
     };
   }
@@ -161,12 +161,12 @@ class ShelfAdapter {
         );
 
         return onSuccess(user, request);
-      } on ProviderNotFoundException catch (e) {
-        return Response.notFound(e.message);
+      } on ProviderNotFoundException catch (_) {
+        return Response.notFound("no provider found");
       } on OAuthException catch (e) {
         return onError(e, request);
       } catch (e) {
-        return Response.internalServerError(body: 'Callback failed: $e');
+        return Response.internalServerError();
       }
     };
   }

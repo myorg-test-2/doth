@@ -108,17 +108,13 @@ class RawAdapter {
 
         await onSuccess(user, request);
       }
-    } on ProviderNotFoundException catch (e) {
-      request.response
-        ..statusCode = HttpStatus.notFound
-        ..write(e.message);
+    } on ProviderNotFoundException catch (_) {
+      request.response.statusCode = HttpStatus.notFound;
       await request.response.close();
     } on OAuthException catch (e) {
       await onError(e, request);
-    } catch (e) {
-      request.response
-        ..statusCode = HttpStatus.internalServerError
-        ..write('Internal error: $e');
+    } catch (_) {
+      request.response.statusCode = HttpStatus.internalServerError;
       await request.response.close();
     }
   }
