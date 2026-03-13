@@ -1,0 +1,33 @@
+name: Polaris Scan
+
+on:
+  push:
+    branches: [master, main, develop]
+  pull_request:
+    branches: [master, main, develop]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  polaris-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Black Duck Security Scan
+        uses: blackduck-inc/black-duck-security-scan@v2
+        with:
+          polaris_server_url: ${{ vars.POLARIS_URL }}
+          polaris_access_token: ${{ secrets.POLARIS_ACCESS_TOKEN }}
+          polaris_application_name: ${{ github.repository_owner }}
+          polaris_project_name: ${{ github.event.repository.name }}
+          polaris_branch_name: ${{ github.head_ref || github.ref_name }}
+          polaris_branch_parent_name: ${{ github.base_ref || 'master' }}
+          polaris_assessment_types: 'SAST,SCA'
+          polaris_test_sast_type: ${{ github.event_name == 'pull_request' && 'SAST-RAPID' || 'SAST-FULL' }}
+          polaris_prComment_enabled: ${{ github.event_name == 'pull_request' }}
+          polaris_prComment_severities: 'CRITICAL,HIGH,MEDIUM'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
