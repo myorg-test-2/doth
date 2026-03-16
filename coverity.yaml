@@ -1,3 +1,0 @@
-capture:
-  build:
-    build-command: echo "dart test"
