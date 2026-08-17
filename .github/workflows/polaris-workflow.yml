@@ -21,6 +21,7 @@ on:
 permissions:
   contents: write               # Required to push changes or create fix branches
   pull-requests: write          # Required to add comments or create fix pull requests
+  issues: write                 # Required to create github issues
 jobs:
   polaris:
     runs-on: ubuntu-latest
@@ -38,22 +39,13 @@ jobs:
           ### ASSESSMENT TYPES
           polaris_assessment_types: SAST,SCA  # Comma-separated list: SAST,SCA,DAST
           ### SCANNING: Optional fields
-          polaris_test_sast_location: hybrid
+          polaris_test_sast_location: remote
           polaris_test_sca_location: hybrid
           ### GITHUB TOKEN
           github_token: ${{ secrets.GITHUB_TOKEN }}  # Required when PR comments or sarif reports enabled
           polaris_prComment_enabled: true
           ### FIX PULL REQUEST CREATION
           polaris_fixpr_enabled: true
+          polaris_externalIssues_create: true
           ### SARIF report parameters
           polaris_reports_sarif_create: true  # Create SARIF report and upload it as artifact
-
-
-          ### SCAN CONFIGURATION: Uncomment below to enable
-          # polaris_waitForScan: true # Wait for scan completion before proceeding
-
-          ### Mark build status if policy violating issues are found
-          # mark_build_status: failure # Set to success, failure, or skip
-
-          ### Uncomment below configuration if Bridge diagnostic files needs to be uploaded
-          # include_diagnostics: false
